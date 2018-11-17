@@ -6,7 +6,7 @@ export default class HomePage extends React.Component {
     return (
       <View style={styles.container}>
         <Text>AirPoll HomePage</Text>
-        <Button title='Start'  onPress={() => console.log('Navigate')}/>
+        <Button title='Start' onPress={() => this.props.navigation.navigate('MapsScreen')}/>
       </View>
     );
   }
