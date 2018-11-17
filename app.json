@@ -1,18 +1,19 @@
 {
   "expo": {
-    "name": "AirPoll-MobileApp",
+    "name": "AirPoll",
     "description": "This project is really great.",
-    "slug": "AirPoll-MobileApp",
+    "slug": "AirPoll",
     "privacy": "public",
     "sdkVersion": "31.0.0",
     "platforms": ["ios", "android"],
-    "version": "1.0.0",
+    "version": "0.1.0",
     "orientation": "portrait",
+    "primaryColor": "#00DEAD",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#00DEAD"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -20,8 +21,9 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
+    "androidStatusBar": {
+      "barStyle": "dark-content",
+      "backgroundColor": "#00DEAD"
     }
   }
 }
