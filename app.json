@@ -11,7 +11,7 @@
     "primaryColor": "#00DEAD",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/icon.png",
+      "image": "./assets/title-background.png",
       "resizeMode": "contain",
       "backgroundColor": "#00DEAD"
     },
