@@ -1,11 +1,12 @@
 import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, ImageBackground, StyleSheet, Text, View } from 'react-native';
+import PillButton from '../components/PillButton';
 
 export default class HomePage extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { testID: null };
+    this.state = { testID: null, showInput: false };
     this.getSecureStore();
   }
 
@@ -19,22 +20,27 @@ export default class HomePage extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text>AirPoll HomePage</Text>
-        <Text>{this.state.testID}</Text>
-        <Button title='Start' onPress={() => this.props.navigation.navigate('MapsScreen')}/>
-        <Button title='Set' onPress={this.setSecureStore}/>
-        <Button title='Get' onPress={this.getSecureStore}/>
-      </View>
+      <ImageBackground
+        style={styles.background}
+        source={require('../../assets/title-background.png')}>
+        <PillButton
+          text='START'
+          style={styles.startButton}
+          onPress={() => this.props.navigation.navigate('MapsScreen')}/>
+      </ImageBackground>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
+  background: {
     alignItems: 'center',
     justifyContent: 'center',
+    width: '100%',
+    height: '100%',
   },
+  startButton: {
+    position: 'absolute',
+    top: '70%',
+  }
 });
