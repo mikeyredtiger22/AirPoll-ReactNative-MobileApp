@@ -2,6 +2,8 @@ import React from 'react';
 import { Animated, ImageBackground, StyleSheet, Text, TextInput } from 'react-native';
 import PillButton from '../components/PillButton';
 
+const SENSOR_ID_KEY = 'sensor';
+
 export default class HomePage extends React.Component {
 
   constructor(props) {
@@ -12,7 +14,7 @@ export default class HomePage extends React.Component {
       inputText: '',
       animationPercent: new Animated.Value(0),
     };
-    this.getSecureStore();
+    this.getSecureStore(SENSOR_ID_KEY);
   }
 
   handleStartButton = () => {
@@ -29,12 +31,19 @@ export default class HomePage extends React.Component {
     ).start();
   };
 
-  setSecureStore = () => {
-    Expo.SecureStore.setItemAsync('testID', 'testValue');
+  // save sensor ID and open maps screen
+  handleSubmit = () => {
+    this.setSecureStore(SENSOR_ID_KEY, this.state.inputText).then(() => {
+      this.props.navigation.navigate('MapsScreen');
+    });
   };
 
-  getSecureStore = () => {
-    Expo.SecureStore.getItemAsync('testID').then(value => this.setState({ testID: value }));
+  setSecureStore = (key, value) => {
+    return Expo.SecureStore.setItemAsync(key, value);
+  };
+
+  getSecureStore = (key) => {
+    Expo.SecureStore.getItemAsync(key).then(value => this.setState({ testID: value }));
   };
 
   render() {
@@ -42,6 +51,7 @@ export default class HomePage extends React.Component {
       <ImageBackground
         style={styles.background}
         source={require('../../assets/title-background.png')}>
+        <Text style={styles.testIDLabel}>test ID:{this.state.testID}</Text>
         <Animated.View style={{
           position: 'absolute',
           top: this.state.animationPercent.interpolate({
@@ -51,7 +61,6 @@ export default class HomePage extends React.Component {
         }}>
           <PillButton
             text='START'
-            style={styles.startButton}
             onPress={this.handleStartButton}/>
         </Animated.View>
         <Animated.View style={{
@@ -65,9 +74,10 @@ export default class HomePage extends React.Component {
           <Text style={styles.inputLabel}>Enter your sensor ID:</Text>
           <TextInput
             style={styles.input}
-            onChangeText={(text) => this.setState({ text })}
+            onChangeText={(text) => this.setState({ inputText: text })}
             value={this.state.inputText}
             keyboardType='numeric'
+            onSubmitEditing={this.handleSubmit}
           />
         </Animated.View>
       </ImageBackground>
@@ -82,8 +92,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  startButton: {
-  },
   input: {
     height: 50,
     borderWidth: 1,
@@ -96,5 +104,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     alignSelf: 'center',
     marginBottom: 5,
+  },
+  testIDLabel: {
+    position: 'absolute',
+    bottom: 0
   }
 });
