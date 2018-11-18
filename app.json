@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "AirPoll",
-    "description": "This project is really great.",
+    "description": "React Native Expo mobile app. ECS air pollution research project.",
     "slug": "AirPoll",
     "privacy": "public",
     "sdkVersion": "31.0.0",
