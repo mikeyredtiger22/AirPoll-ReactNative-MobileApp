@@ -13,7 +13,7 @@
     "splash": {
       "image": "./assets/title-background.png",
       "resizeMode": "cover",
-      "backgroundColor": "#00DEAD"
+      "backgroundColor": "#1DB2A5"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -23,7 +23,7 @@
     ],
     "androidStatusBar": {
       "barStyle": "dark-content",
-      "backgroundColor": "#00DEAD"
+      "backgroundColor": "#158CAE"
     }
   }
 }
