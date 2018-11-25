@@ -21,7 +21,7 @@ export default class HomePage extends React.Component {
     //Open maps screen if user object exists
     Expo.SecureStore.getItemAsync(USER_OBJ_KEY).then(user => {
       if (user) {
-        this.props.navigation.navigate('MapsScreen');
+        this.props.navigation.navigate('MapsScreen', { userObj: user });
       }
     });
   }
