@@ -2,10 +2,7 @@ import React from 'react';
 import { Animated, ImageBackground, StyleSheet, Text, TextInput, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import PillButton from '../components/PillButton';
-
-const SENSOR_ID_KEY = 'SENSOR_ID';
-const USER_OBJ_KEY = 'USER_OBJ';
-const SERVER_URL = 'http://192.168.1.160:3000';
+import { SERVER_URL, USER_OBJ_KEY } from '../DefaultValues';
 
 export default class HomePage extends React.Component {
 
@@ -50,16 +47,13 @@ export default class HomePage extends React.Component {
       // todo show error?
       return;
     }
+    this.createUser(inputText, response => {
+      if (response.error) {
+        //todo handle error
+      }
 
-    this.setSecureStore(SENSOR_ID_KEY, inputText).then(() => {
-      this.createUser(inputText, response => {
-        if (response.error) {
-          //todo handle error
-        }
-
-        this.setSecureStore(USER_OBJ_KEY, response).then(() => {
-          this.props.navigation.navigate('MapsScreen');
-        });
+      this.setSecureStore(USER_OBJ_KEY, response).then(() => {
+        this.props.navigation.navigate('MapsScreen');
       });
     });
   };

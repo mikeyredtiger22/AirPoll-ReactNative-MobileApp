@@ -1,16 +1,12 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import PillButton from '../components/PillButton';
-
-const SENSOR_ID_KEY = 'SENSOR_ID';
-const USER_OBJ_KEY = 'USER_OBJ';
+import { USER_OBJ_KEY } from '../DefaultValues';
 
 export default class ProfileScreen extends React.Component {
   handleLogout = () => {
-    Expo.SecureStore.deleteItemAsync(SENSOR_ID_KEY).then(() => {
-      Expo.SecureStore.deleteItemAsync(USER_OBJ_KEY).then(() => {
-        this.props.navigation.navigate('HomeScreen');
-      });
+    Expo.SecureStore.deleteItemAsync(USER_OBJ_KEY).then(() => {
+      this.props.navigation.navigate('HomeScreen');
     });
   };
 
