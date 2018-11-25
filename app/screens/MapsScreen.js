@@ -14,7 +14,7 @@ export default class MapsScreen extends React.Component {
   componentDidMount() {
     this.getUserObj(user => {
       this.getHeatmapData(user, heatmapData => {
-        this.setState({ heatmapData: heatmapData });
+        this.setState({ heatmapData: JSON.parse(heatmapData).heatmapData });
       });
     });
   }
@@ -30,12 +30,12 @@ export default class MapsScreen extends React.Component {
     }
   };
 
-  getHeatmapData = (user) => {
+  getHeatmapData = (user, callback) => {
     const userID = JSON.parse(user).user.userID;
     const url = SERVER_URL + '?userID=' + userID;
     fetch(url)
     .then(res => res.text())
-    .then(body => console.log('got Data!'))
+    .then(body => callback(body))
     .catch(err => {
       console.error(err);
     });
@@ -46,14 +46,26 @@ export default class MapsScreen extends React.Component {
       <MapView
         style={styles.mapView}
         initialRegion={{
-          latitude: 50.917060,
+          latitude: 50.937060,
           longitude: -1.398031,
           latitudeDelta: 0.08,
           longitudeDelta: 0.05,
         }}
         showsScale={true}
         loadingEnabled={true}
-      />
+      >
+        {this.state.heatmapData.map((datapoint, index) => {
+          return (
+            <MapView.Marker
+              key={index}
+              coordinate={{
+                latitude: datapoint.lat,
+                longitude: datapoint.lng,
+              }}
+            />
+          );
+        })}
+      </MapView>
     );
   }
 }
