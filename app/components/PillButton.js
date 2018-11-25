@@ -15,7 +15,7 @@ export default PillButton;
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#c7ebcc',
+    backgroundColor: '#ffffff99',
     paddingHorizontal: 20,
     borderRadius: 100,
   },

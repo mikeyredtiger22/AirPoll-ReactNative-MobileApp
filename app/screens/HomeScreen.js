@@ -11,6 +11,7 @@ export default class HomePage extends React.Component {
     super(props);
     this.state = {
       testID: null,
+      apiResult: '',
       showInput: false,
       inputText: '',
       animationPercent: new Animated.Value(0),
@@ -37,6 +38,13 @@ export default class HomePage extends React.Component {
     this.setSecureStore(SENSOR_ID_KEY, this.state.inputText).then(() => {
       this.props.navigation.navigate('MapsScreen');
     });
+  };
+
+  testAPIRequest = () => {
+    fetch('http://192.168.1.160:3000/api')
+    .then(res => res.text())
+    .then(body => this.setState({ apiResult: body }))
+    .catch(err => console.warn(err));
   };
 
   setSecureStore = (key, value) => {
@@ -84,6 +92,7 @@ export default class HomePage extends React.Component {
         {(this.state.inputText.length > 0) &&
         <View style={styles.submitIcon}>
           <Ionicons
+            onPress={this.testAPIRequest}
             name='ios-arrow-dropright'
             color='white'
             size={48}
@@ -91,6 +100,7 @@ export default class HomePage extends React.Component {
         </View>
         }
         <Text style={styles.testIDLabel}>test ID:{this.state.testID}</Text>
+        <Text style={styles.apiResult}>res:{this.state.apiResult}</Text>
       </ImageBackground>
     );
   }
@@ -127,5 +137,9 @@ const styles = StyleSheet.create({
   testIDLabel: {
     position: 'absolute',
     bottom: 0,
+  },
+  apiResult: {
+    position: 'absolute',
+    top: 0,
   }
 });
