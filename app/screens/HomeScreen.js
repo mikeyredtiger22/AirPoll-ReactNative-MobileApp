@@ -4,6 +4,8 @@ import { Ionicons } from '@expo/vector-icons';
 import PillButton from '../components/PillButton';
 
 const SENSOR_ID_KEY = 'SENSOR_ID';
+const USER_OBJ_KEY = 'USER_OBJ';
+const SERVER_URL = 'http://192.168.1.160:3000';
 
 export default class HomePage extends React.Component {
 
@@ -35,16 +37,34 @@ export default class HomePage extends React.Component {
 
   // save sensor ID and open maps screen
   handleSubmit = () => {
-    this.setSecureStore(SENSOR_ID_KEY, this.state.inputText).then(() => {
-      this.props.navigation.navigate('MapsScreen');
+    const inputText = this.state.inputText;
+    if (!inputText) {
+      // todo show error?
+      return;
+    }
+
+    this.setSecureStore(SENSOR_ID_KEY, inputText).then(() => {
+      this.createUser(inputText, response => {
+        if (response.error) {
+          //todo handle error
+        }
+
+        this.setSecureStore(USER_OBJ_KEY, response).then(() => {
+          this.props.navigation.navigate('MapsScreen');
+        })
+      });
     });
   };
 
-  testAPIRequest = () => {
-    fetch('http://192.168.1.160:3000/api')
+  createUser = (sensorID, callback) => {
+    const url = SERVER_URL + '/user?sensorID=' + sensorID;
+    fetch(url, {method: 'POST'})
     .then(res => res.text())
-    .then(body => this.setState({ apiResult: body }))
-    .catch(err => console.warn(err));
+    .then(body => callback(body))
+    .catch(err => {
+      console.warn(err);
+      callback(body);
+    });
   };
 
   setSecureStore = (key, value) => {
