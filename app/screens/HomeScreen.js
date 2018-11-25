@@ -18,7 +18,15 @@ export default class HomePage extends React.Component {
       inputText: '',
       animationPercent: new Animated.Value(0),
     };
-    this.getSecureStore(SENSOR_ID_KEY);
+  }
+
+  componentDidMount() {
+    //Open maps screen if user object exists
+    Expo.SecureStore.getItemAsync(USER_OBJ_KEY).then(user => {
+      if (user) {
+        this.props.navigation.navigate('MapsScreen');
+      }
+    });
   }
 
   handleStartButton = () => {
@@ -51,14 +59,14 @@ export default class HomePage extends React.Component {
 
         this.setSecureStore(USER_OBJ_KEY, response).then(() => {
           this.props.navigation.navigate('MapsScreen');
-        })
+        });
       });
     });
   };
 
   createUser = (sensorID, callback) => {
     const url = SERVER_URL + '/user?sensorID=' + sensorID;
-    fetch(url, {method: 'POST'})
+    fetch(url, { method: 'POST' })
     .then(res => res.text())
     .then(body => callback(body))
     .catch(err => {
@@ -69,10 +77,6 @@ export default class HomePage extends React.Component {
 
   setSecureStore = (key, value) => {
     return Expo.SecureStore.setItemAsync(key, value);
-  };
-
-  getSecureStore = (key) => {
-    Expo.SecureStore.getItemAsync(key).then(value => this.setState({ testID: value }));
   };
 
   render() {
@@ -119,8 +123,6 @@ export default class HomePage extends React.Component {
           />
         </View>
         }
-        <Text style={styles.testIDLabel}>test ID:{this.state.testID}</Text>
-        <Text style={styles.apiResult}>res:{this.state.apiResult}</Text>
       </ImageBackground>
     );
   }
@@ -154,12 +156,4 @@ const styles = StyleSheet.create({
     top: '53%',
     right: '5%',
   },
-  testIDLabel: {
-    position: 'absolute',
-    bottom: 0,
-  },
-  apiResult: {
-    position: 'absolute',
-    top: 0,
-  }
 });
