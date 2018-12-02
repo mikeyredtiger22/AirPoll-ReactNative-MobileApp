@@ -5,7 +5,10 @@
     "slug": "AirPoll",
     "privacy": "public",
     "sdkVersion": "31.0.0",
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "version": "0.1.0",
     "orientation": "portrait",
     "primaryColor": "#00DEAD",
@@ -16,7 +19,7 @@
       "backgroundColor": "#1DB2A5"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 3000
     },
     "assetBundlePatterns": [
       "**/*"
@@ -24,6 +27,12 @@
     "androidStatusBar": {
       "barStyle": "dark-content",
       "backgroundColor": "#158CAE"
+    },
+    "ios": {
+      "bundleIdentifier": "com.spike.airpoll"
+    },
+    "android": {
+      "package": "com.spike.airpoll"
     }
   }
 }

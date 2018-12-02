@@ -54,18 +54,21 @@ export default class MapsScreen extends React.Component {
         showsScale={true}
         loadingEnabled={true}
       >
-        {this.state.heatmapData.map((datapoint, index) => {
+        {this.state.heatmapData.map((datapoint) => {
           return (
-            <MapView.Marker
-              key={index}
-              coordinate={{
+            <MapView.Circle
+              key={datapoint.lat * datapoint.lng}
+              center={{
                 latitude: datapoint.lat,
                 longitude: datapoint.lng,
               }}
+              radius={500}
+              strokeColor={'#ff000000'}
+              fillColor={'#ff400020'}
             />
           );
         })}
-      </MapView>
+      </MapView> // todo later: data vis needs to stand out on all map themes
     );
   }
 }

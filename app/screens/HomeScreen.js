@@ -110,7 +110,7 @@ export default class HomePage extends React.Component {
         {(this.state.inputText.length > 0) &&
         <View style={styles.submitIcon}>
           <Ionicons
-            onPress={this.testAPIRequest}
+            onPress={this.handleSubmit}
             name='ios-arrow-dropright'
             color='white'
             size={48}
