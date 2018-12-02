@@ -57,14 +57,14 @@ export default class MapsScreen extends React.Component {
         {this.state.heatmapData.map((datapoint) => {
           return (
             <MapView.Circle
-              key={datapoint.lat * datapoint.lng}
+              key={datapoint.lat * datapoint.lng * datapoint.value}
               center={{
                 latitude: datapoint.lat,
                 longitude: datapoint.lng,
               }}
               radius={500}
               strokeColor={'#ff000000'}
-              fillColor={'#ff400020'}
+              fillColor={'#7e00ff10'}
             />
           );
         })}

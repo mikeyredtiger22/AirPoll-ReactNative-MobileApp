@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import PillButton from '../components/PillButton';
-import { SERVER_URL, USER_OBJ_KEY } from '../DefaultValues';
+import { APP_VERSION, SERVER_URL, USER_OBJ_KEY } from '../DefaultValues';
 
 export default class ProfileScreen extends React.Component {
 
@@ -43,7 +43,7 @@ export default class ProfileScreen extends React.Component {
   saveUserData = (userObjString) => {
     const userJson = JSON.parse(userObjString);
     if (userJson.user) {
-      this.setState({ userObj: userJson});
+      this.setState({ userObj: userJson });
       Expo.SecureStore.setItemAsync(USER_OBJ_KEY, userObjString);
     }
   };
@@ -62,20 +62,18 @@ export default class ProfileScreen extends React.Component {
 
   render() {
     const points = this.state.userObj?.user?.points || 0;
+    const treatment = this.state.userObj?.user?.treatment || 0;
     return (
       <View style={styles.container}>
+        <PillButton style={styles.logoutButton} text='LOGOUT' onPress={this.handleLogout}/>
         <View style={styles.pointsContainer}>
           <Text style={styles.pointsLabel}>Points: {points}</Text>
           <TouchableOpacity>
-            <Ionicons
-              onPress={this.handleSyncPoints}
-              name='md-sync'
-              color='black'
-              size={48}
-            />
+            <Ionicons onPress={this.handleSyncPoints} name='md-sync' color='black' size={48}/>
           </TouchableOpacity>
         </View>
-        <PillButton text='LOGOUT' onPress={this.handleLogout}/>
+        <Text style={styles.treatmentLabel}>Treatment: {treatment}</Text>
+        <Text style={styles.version}>version: v{APP_VERSION}</Text>
       </View>
     );
   }
@@ -86,18 +84,28 @@ const styles = StyleSheet.create({
     padding: 30,
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'flex-start',
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    backgroundColor: '#888888'
+    backgroundColor: '#008f69'
   },
   pointsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 30
   },
   pointsLabel: {
     flex: 1,
     fontSize: 25,
+  },
+  treatmentLabel: {
+    fontSize: 25,
+    alignSelf: 'flex-start'
+  },
+  version: {
+    marginTop: 20
+  },
+  logoutButton: {
+    position: 'absolute',
+    top: '10%'
   }
 });
