@@ -9,7 +9,7 @@
       "ios",
       "android"
     ],
-    "version": "0.1.0",
+    "version": "1.0.0",
     "orientation": "portrait",
     "primaryColor": "#00DEAD",
     "icon": "./assets/icon.png",
@@ -29,10 +29,12 @@
       "backgroundColor": "#158CAE"
     },
     "ios": {
-      "bundleIdentifier": "com.spike.airpoll"
+      "bundleIdentifier": "com.spike.airpoll",
+      "buildNumber": "1.0.0"
     },
     "android": {
-      "package": "com.spike.airpoll"
+      "package": "com.spike.airpoll",
+      "versionCode": 1
     }
   }
 }
