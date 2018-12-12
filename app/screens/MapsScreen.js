@@ -31,8 +31,8 @@ export default class MapsScreen extends React.Component {
   };
 
   getHeatmapData = (user, callback) => {
-    const userID = JSON.parse(user).user.userID;
-    const url = SERVER_URL + '?userID=' + userID;
+    const treatment = JSON.parse(user).user.treatment;
+    const url = SERVER_URL + '?treatment=' + treatment;
     fetch(url)
     .then(res => res.text())
     .then(body => callback(body))
